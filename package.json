@@ -4,6 +4,7 @@
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
       "@types/dotenv": "^8.2.0",
+      "@types/jest": "^26.0.20",
       "@types/lodash": "^4.14.168",
       "@types/node": "^8.0.29",
       "@typescript-eslint/eslint-plugin": "4",
@@ -12,7 +13,9 @@
       "eslint-plugin-import": "2",
       "eslint-plugin-node": "11",
       "eslint-plugin-promise": "4",
+      "jest": "^26.6.3",
       "nodemon": "^2.0.7",
+      "ts-jest": "^26.5.3",
       "ts-node": "3.3.0",
       "typescript": "^4.2.3"
    },
@@ -28,7 +31,8 @@
       "typeorm": "0.2.31"
    },
    "scripts": {
-      "start": "nodemon"
+      "start": "nodemon",
+      "test": "jest"
    },
    "main": "index.js",
    "author": "Henrique Curzio Ladeira <henrique.c.ladeira@gmail.com>",
