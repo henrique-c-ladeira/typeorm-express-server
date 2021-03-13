@@ -3,14 +3,20 @@
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
+      "@types/dotenv": "^8.2.0",
       "@types/lodash": "^4.14.168",
       "@types/node": "^8.0.29",
+      "@typescript-eslint/eslint-plugin": "4",
+      "eslint": "7",
+      "eslint-config-standard-with-typescript": "^20.0.0",
+      "eslint-plugin-import": "2",
+      "eslint-plugin-node": "11",
+      "eslint-plugin-promise": "4",
       "nodemon": "^2.0.7",
       "ts-node": "3.3.0",
-      "typescript": "3.3.3333"
+      "typescript": "^4.2.3"
    },
    "dependencies": {
-      "@types/dotenv": "^8.2.0",
       "bcrypt": "^5.0.1",
       "body-parser": "^1.18.1",
       "dotenv": "^8.2.0",

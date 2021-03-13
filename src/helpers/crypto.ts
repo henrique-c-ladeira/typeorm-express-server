@@ -1,10 +1,10 @@
-const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 10;
+import bcrypt from 'bcrypt'
+const SALT_ROUNDS = 10
 
-export const hash = async (text: string, saltRounds = SALT_ROUNDS) => {
-  return await bcrypt.hash(text, saltRounds);
+export const hash = async (text: string, saltRounds = SALT_ROUNDS): Promise<string> => {
+  return bcrypt.hash(text, saltRounds)
 }
 
-export const checkHash = async (text: string, hashedText: string) => {
-  return await bcrypt.compare(text, hashedText);
+export const checkHash = async (text: string, hashedText: string): Promise<Boolean> => {
+  return bcrypt.compare(text, hashedText)
 }
