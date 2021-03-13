@@ -1,6 +1,6 @@
-import { UserController } from './controller/UserController'
-import { TokenController } from './controller/TokenController'
-import { verifyJWT } from './middlewares/auth-middleware'
+import { UserController } from './controller/UserController';
+import { TokenController } from './controller/TokenController';
+import { verifyJWT } from './middlewares/auth-middleware';
 
 export const Routes = [{
   method: 'get',
@@ -36,4 +36,4 @@ export const Routes = [{
   controller: TokenController,
   action: 'invalidate',
   middlewares: [verifyJWT]
-}]
+}];
