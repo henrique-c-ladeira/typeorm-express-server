@@ -1,15 +1,26 @@
 import {NextFunction, Request, Response} from "express";
+import {getRepository} from "typeorm";
 import * as jwt from 'jsonwebtoken';
+import {Token} from "../entity/Token";
+import _ from 'lodash';
 
-export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
+export const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
+  try {
     const token = req.headers.authorization;
     if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
     
-    jwt.verify(token, process.env.JWT_PRIVATE, function(err, decoded) {
-      if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
-      
-      req.userId = decoded.id;
-      req.token = token;
-      next();
-    });
+    const decoded = await jwt.verify(token, process.env.JWT_PRIVATE);
+
+    const tokenRepository = getRepository(Token);
+    const invalidatedToken = await tokenRepository.findOne({id: token});
+    if (!_.isEmpty(invalidatedToken)) 
+      return res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
+    
+    req.userId = decoded.id;
+    req.token = token;
+    next();
+
+  } catch (err) {
+    return res.status(500).json({ auth: false, message: 'Failed to authenticate token.', error: err });
+  }
 }

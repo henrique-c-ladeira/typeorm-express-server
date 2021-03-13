@@ -1,6 +1,7 @@
 import {getRepository} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {User} from "../entity/User";
+import {hash} from '../helpers/crypto';
 
 export class UserController {
 
@@ -21,7 +22,17 @@ export class UserController {
 
   async save(request: Request, response: Response, next: NextFunction) {
     try {
-      return await this.userRepository.save(request.body);
+      const {name, email, password, phone, birthday} = request.body;
+      const hashedPassword = await hash(password);
+      const newUser = {
+        name,
+        email, 
+        password: hashedPassword, 
+        phone, 
+        birthday
+      }
+
+      return await this.userRepository.save(newUser);
     } catch (error) {
       return response.status(400).send({error: error.message});
     }

@@ -31,15 +31,9 @@ export const Routes = [{
     controller: TokenController,
     action: "create"
 }, {
-    method: "put",
+    method: "delete",
     route: "/token",
     controller: TokenController,
-    action: "extends",
-    middlewares: [verifyJWT]
-}, {
-    method: "delete",
-    route: "/token/:id",
-    controller: TokenController,
-    action: "remove",
+    action: "invalidate",
     middlewares: [verifyJWT]
 }, ];

@@ -1,5 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-import { User } from "./User";
+import {Column, Entity, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class Token {
@@ -7,10 +6,4 @@ export class Token {
   @PrimaryColumn()
   id: string;
 
-  @Column()
-  expires: number;
-
-  @ManyToOne(() => User)
-  @JoinColumn()
-  user: User;
 }
