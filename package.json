@@ -5,6 +5,7 @@
    "devDependencies": {
       "@types/lodash": "^4.14.168",
       "@types/node": "^8.0.29",
+      "nodemon": "^2.0.7",
       "ts-node": "3.3.0",
       "typescript": "3.3.3333"
    },
@@ -21,7 +22,7 @@
       "typeorm": "0.2.31"
    },
    "scripts": {
-      "start": "ts-node src/index.ts"
+      "start": "nodemon"
    },
    "main": "index.js",
    "author": "Henrique Curzio Ladeira <henrique.c.ladeira@gmail.com>",
