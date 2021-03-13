@@ -3,18 +3,24 @@
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
-      "ts-node": "3.3.0",
       "@types/node": "^8.0.29",
+      "ts-node": "3.3.0",
       "typescript": "3.3.3333"
    },
    "dependencies": {
-      "typeorm": "0.2.31",
-      "reflect-metadata": "^0.1.10",
+      "@types/dotenv": "^8.2.0",
+      "body-parser": "^1.18.1",
+      "dotenv": "^8.2.0",
+      "express": "^4.17.1",
+      "jsonwebtoken": "^8.5.1",
       "pg": "^8.4.0",
-      "express": "^4.15.4",
-      "body-parser": "^1.18.1"
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "0.2.31"
    },
    "scripts": {
       "start": "ts-node src/index.ts"
-   }
+   },
+   "main": "index.js",
+   "author": "Henrique Curzio Ladeira <henrique.c.ladeira@gmail.com>",
+   "license": "MIT"
 }
