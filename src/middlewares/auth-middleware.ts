@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
-import { Token } from '../entity/Token';
 import _ from 'lodash';
+import { Token } from '../entity';
 import { UnauthorizedError, AccessDeniedError } from '../errors';
-import { catchError } from '../helpers/catch-error';
+import { catchError } from '../helpers';
 
 export const verifyJWT = catchError(async (req: Request, res: Response, next: NextFunction): NextFunction => {
   const token = req.headers.authorization;

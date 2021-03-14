@@ -1,9 +1,8 @@
 /* eslint-disable no-unreachable */
 import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
-import { User } from '../entity/User';
-import { hash } from '../helpers/crypto';
-import { catchError } from '../helpers/catch-error';
+import { User } from '../entity';
+import { hash, catchError } from '../helpers';
 import { BadRequestError } from '../errors';
 
 export class UserController {

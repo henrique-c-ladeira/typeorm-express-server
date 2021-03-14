@@ -1,11 +1,9 @@
 import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
-import { Token } from '../entity/Token';
-import { User } from '../entity/User';
-import { checkHash } from '../helpers/crypto';
 import * as jwt from 'jsonwebtoken';
-import { UnauthorizedError } from '../errors/unauthorized-error';
-import { catchError } from '../helpers/catch-error';
+import { Token, User } from '../entity';
+import { checkHash, catchError } from '../helpers';
+import { UnauthorizedError } from '../errors';
 
 export class TokenController {
   private readonly userRepository = getRepository(User)

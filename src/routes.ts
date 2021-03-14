@@ -1,5 +1,4 @@
-import { UserController } from './controller/UserController';
-import { TokenController } from './controller/TokenController';
+import { UserController, TokenController } from './controller';
 import { verifyJWT } from './middlewares/auth-middleware';
 
 export const Routes = [{
