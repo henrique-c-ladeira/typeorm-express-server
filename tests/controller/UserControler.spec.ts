@@ -53,7 +53,7 @@ describe('USER CONTROLLER TESTS', () => {
     done();
   });
 
-  test('GET /users/ - Should return 401 if not authenticated.', async (done) => {
+  test('GET /users - Should return 401 if not authenticated.', async (done) => {
     const response = await supertest(app).get('/users').send();
     expect(response.status).toBe(401);
     done();

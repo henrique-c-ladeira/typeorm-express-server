@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { Token, User } from '../entity';
 import { checkHash, catchError } from '../helpers';
-import { UnauthorizedError } from '../errors';
+import { BadRequestError, UnauthorizedError } from '../errors';
 
 export class TokenController {
   private readonly userRepository = getRepository(User)
@@ -11,6 +11,7 @@ export class TokenController {
 
   public create = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
     const { email, password } = request.body;
+    if (!(email && password)) throw new BadRequestError();
     const userToValidate = await this.userRepository.findOneOrFail({ email: email });
     const isAutenticated = await checkHash(password, userToValidate.password);
     if (!isAutenticated) { throw new UnauthorizedError(); }
