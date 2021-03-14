@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import supertest from 'supertest';
-import app from '../../src/app';
+import app from '../../src/server';
 import Chance from 'chance';
 
 import { createConnection, getConnection } from 'typeorm';

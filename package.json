@@ -36,7 +36,7 @@
    },
    "scripts": {
       "start": "nodemon",
-      "test": "jest"
+      "test": "jest --verbose --watchAll"
    },
    "main": "index.js",
    "author": "Henrique Curzio Ladeira <henrique.c.ladeira@gmail.com>",

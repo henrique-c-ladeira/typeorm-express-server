@@ -4,38 +4,29 @@ import { Token } from '../entity/Token';
 import { User } from '../entity/User';
 import { checkHash } from '../helpers/crypto';
 import * as jwt from 'jsonwebtoken';
+import { UnauthorizedError } from '../errors/unauthorized-error';
+import { catchError } from '../helpers/catch-error';
 
 export class TokenController {
   private readonly userRepository = getRepository(User)
   private readonly tokenRepository = getRepository(Token)
 
-  async create (request: Request, response: Response, next: NextFunction): Response {
-    try {
-      const { email, password } = request.body;
-      const userToValidate = await this.userRepository.findOneOrFail({ email: email });
-      const isAutenticated = await checkHash(password, userToValidate.password);
-      if (!isAutenticated) { throw new Error('Invalid Token!'); }
+  public create = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
+    const { email, password } = request.body;
+    const userToValidate = await this.userRepository.findOneOrFail({ email: email });
+    const isAutenticated = await checkHash(password, userToValidate.password);
+    if (!isAutenticated) { throw new UnauthorizedError(); }
 
-      const newToken = {
-        id: jwt.sign({ id: userToValidate.id },
-          process.env.JWT_PRIVATE,
-          { expiresIn: '1h' })
-      };
+    const newToken = jwt.sign({ id: userToValidate.id },
+      process.env.JWT_PRIVATE,
+      { expiresIn: '1h' });
 
-      response.status(200).send({ jwt: newToken });
-    } catch (error) {
-      response.status(500).send({ error: error.message });
-    }
-  }
+    response.status(200).send({ jwt: newToken });
+  })
 
-  async invalidate (request: Request, response: Response, next: NextFunction): Response {
-    try {
-      const invalidatedToken = { id: request.token };
-
-      await this.tokenRepository.save(invalidatedToken);
-      response.sendStatus(204);
-    } catch (error) {
-      response.status(500).send({ error: error.message });
-    }
-  }
+  public invalidate = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
+    const invalidatedToken = { id: request.token };
+    await this.tokenRepository.save(invalidatedToken);
+    response.sendStatus(204);
+  });
 }
