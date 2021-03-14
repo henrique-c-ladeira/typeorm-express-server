@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
 import { User } from '../entity/User';
@@ -22,6 +23,10 @@ export class UserController {
   async save (request: Request, response: Response, next: NextFunction): Response {
     try {
       const { name, email, password, phone, birthday } = request.body;
+      if (name ?? email ?? password ?? phone ?? birthday) {
+        throw new TypeError();
+      }
+
       const hashedPassword = await hash(password);
       const newUser = {
         name,
@@ -30,10 +35,14 @@ export class UserController {
         phone,
         birthday
       };
-
-      return await this.userRepository.save(newUser);
+      await this.userRepository.save(newUser);
+      response.status(200).send({ name: newUser.name, email: newUser.email, phone: newUser.phone, birthday: newUser.birthday });
     } catch (error) {
-      return response.status(400).send({ error: error.message });
+      if (error instanceof TypeError) {
+        response.status(400).send({ error: 'Invalid Request.' });
+      } else {
+        response.status(500).send({ error: error.message });
+      }
     }
   }
 

@@ -7,18 +7,18 @@ import _ from 'lodash';
 export const verifyJWT = async (req: Request, res: Response, next: NextFunction): NextFunction => {
   try {
     const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
+    if (!token) throw new Error('Failed to authenticate token.');
 
     const decoded = await jwt.verify(token, process.env.JWT_PRIVATE);
 
     const tokenRepository = getRepository(Token);
     const invalidatedToken = await tokenRepository.findOne({ id: token });
-    if (!_.isEmpty(invalidatedToken)) { return res.status(401).json({ auth: false, message: 'Failed to authenticate token.' }); }
+    if (!_.isEmpty(invalidatedToken)) { throw new Error('Failed to authenticate token.'); }
 
     req.userId = decoded.id;
     req.token = token;
-    return next();
+    next();
   } catch (err) {
-    return res.status(500).json({ auth: false, message: 'Failed to authenticate token.', error: err });
+    res.status(500).send({ auth: false, message: err.message });
   }
 };

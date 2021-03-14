@@ -14,7 +14,7 @@ export class TokenController {
       const { email, password } = request.body;
       const userToValidate = await this.userRepository.findOneOrFail({ email: email });
       const isAutenticated = await checkHash(password, userToValidate.password);
-      if (!isAutenticated) { return response.sendStatus(401); }
+      if (!isAutenticated) { throw new Error('Invalid Token!'); }
 
       const newToken = {
         id: jwt.sign({ id: userToValidate.id },
@@ -22,9 +22,9 @@ export class TokenController {
           { expiresIn: '1h' })
       };
 
-      return response.status(200).send({ jwt: newToken });
+      response.status(200).send({ jwt: newToken });
     } catch (error) {
-      return response.status(500).send({ error: error.message });
+      response.status(500).send({ error: error.message });
     }
   }
 
@@ -33,9 +33,9 @@ export class TokenController {
       const invalidatedToken = { id: request.token };
 
       await this.tokenRepository.save(invalidatedToken);
-      return response.sendStatus(204);
+      response.sendStatus(204);
     } catch (error) {
-      return response.status(500).send({ error: error.message });
+      response.status(500).send({ error: error.message });
     }
   }
 }

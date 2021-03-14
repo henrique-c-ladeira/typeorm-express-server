@@ -1,38 +1,14 @@
 import { config } from 'dotenv';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
-import express, { Request, Response } from 'express';
-import * as bodyParser from 'body-parser';
-
-import { Routes } from './routes';
+import app from './app';
 
 config();
 
-createConnection().then(async connection => {
-  // create express app
-  const app = express();
-  app.use(bodyParser.json());
-
-  // register express routes from defined application routes
-  Routes.forEach(route => {
-    (app as any)[route.method](route.route, route.middlewares ?? [], (req: Request, res: Response, next: Function) => {
-      const result = (new (route.controller as any)())[route.action](req, res, next);
-      if (result instanceof Promise) {
-        result
-          .then(result => {
-            console.log(res.statusCode, req.method, req.url, req.connection.remoteAddress);
-            return result !== null && result !== undefined ? res.send(result) : undefined;
-          })
-          .catch(err => res.send(err));
-      } else if (result !== null && result !== undefined) {
-        res.json(result);
-      }
-    });
-  });
-
-  // setup express app here
-  // ...
-
+// eslint-disable-next-line no-void
+void (async (): Promise<void> => {
+  // create db connection
+  await createConnection();
   // start express server
-  app.listen(3000, () => console.log('s started on port 3000. Open http://localhost:3000/users to see results'));
-}).catch(error => console.log(error));
+  app.listen(3000, () => console.log('Oh GEE I\'m up.'));
+})();
