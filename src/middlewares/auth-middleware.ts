@@ -19,6 +19,6 @@ export const verifyJWT = async (req: Request, res: Response, next: NextFunction)
     req.token = token;
     next();
   } catch (err) {
-    res.status(500).send({ auth: false, message: err.message });
+    res.status(401).send({ error: err.message });
   }
 };

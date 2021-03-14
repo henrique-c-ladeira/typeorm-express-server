@@ -23,7 +23,7 @@ export class UserController {
   async save (request: Request, response: Response, next: NextFunction): Response {
     try {
       const { name, email, password, phone, birthday } = request.body;
-      if (name ?? email ?? password ?? phone ?? birthday) {
+      if (!(name && email && password && phone && birthday)) {
         throw new TypeError();
       }
 
