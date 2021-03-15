@@ -36,7 +36,12 @@ export class UserController {
       phone,
       birthday
     };
-    await this.userRepository.save(newUser);
+    try {
+      await this.userRepository.save(newUser);
+    } catch {
+      throw new Error('could not save to database');
+    }
+
     response.status(200).send({ name: newUser.name, email: newUser.email, phone: newUser.phone, birthday: newUser.birthday });
   });
 

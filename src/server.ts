@@ -12,15 +12,11 @@ app.use(bodyParser.json());
 Routes.forEach(route => {
   (app as any)[route.method](route.route, logger, route.middlewares ?? [], (req: Request, res: Response, next: Function) => {
     const result = (new (route.controller as any)())[route.action](req, res, next);
-    if (result instanceof Promise) {
-      result
-        .then(result => {
-          return result !== null && result !== undefined ? res.send(result) : undefined;
-        })
-        .catch(err => res.status(500).send(err));
-    } else if (result !== null && result !== undefined) {
-      res.send(result);
-    }
+    result
+      .then(result => {
+        return result !== null && result !== undefined ? res.send(result) : undefined;
+      })
+      .catch(err => res.status(500).send(err));
   });
 });
 

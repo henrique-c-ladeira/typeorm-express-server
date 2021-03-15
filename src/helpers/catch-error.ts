@@ -7,7 +7,7 @@ export const catchError = (fnc) =>
       await fnc(req, res, next);
     } catch (error) {
       const payload = { code: 500, ...error };
-      res.status(payload.code).send({ error: payload });
+      res.status(payload.code).send({ ...payload, message: error.message });
     }
   }
 ;

@@ -10,13 +10,18 @@ export const verifyJWT = catchError(async (req: Request, res: Response, next: Ne
   const token = req.headers.authorization;
   if (!token) throw new UnauthorizedError();
 
-  const decoded = await jwt.verify(token, process.env.JWT_PRIVATE);
+  try {
+    const decoded = await jwt.verify(token, process.env.JWT_PRIVATE);
+    req.userId = decoded.id;
+  } catch {
+    throw new UnauthorizedError();
+  }
 
+  // Check if token is invalidated
   const tokenRepository = getRepository(Token);
   const invalidatedToken = await tokenRepository.findOne({ id: token });
   if (!_.isEmpty(invalidatedToken)) { throw new AccessDeniedError(); }
 
-  req.userId = decoded.id;
   req.token = token;
   next();
 });

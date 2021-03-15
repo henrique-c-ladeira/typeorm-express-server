@@ -25,7 +25,11 @@ export class TokenController {
 
   public invalidate = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
     const invalidatedToken = { id: request.token };
-    await this.tokenRepository.save(invalidatedToken);
+    try {
+      await this.tokenRepository.save(invalidatedToken);
+    } catch {
+      throw new Error('could not save to database');
+    }
     response.sendStatus(204);
   });
 }
