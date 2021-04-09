@@ -20,7 +20,7 @@ export class TokenController {
       process.env.JWT_PRIVATE,
       { expiresIn: '1h' });
 
-    response.status(200).send({ jwt: newToken });
+    response.status(200).send({ username: userToValidate.name, jwt: newToken });
   })
 
   public invalidate = catchError(async (request: Request, response: Response, next: NextFunction): Response => {

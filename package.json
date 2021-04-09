@@ -2,6 +2,9 @@
    "name": "express-typescript",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
+   "engines": {
+      "node": "14.15.5"
+   },
    "devDependencies": {
       "@types/dotenv": "^8.2.0",
       "@types/jest": "^26.0.20",
@@ -35,7 +38,8 @@
       "typeorm": "0.2.31"
    },
    "scripts": {
-      "start": "nodemon",
+      "start": "ts-node src/index.ts",
+      "dev": "nodemon",
       "test": "jest --verbose --watchAll --runInBand"
    },
    "main": "index.js",

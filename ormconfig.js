@@ -12,13 +12,13 @@ const ormconfig = {
   synchronize: true,
   logging: false,
   entities: [
-    'src/entity/**/*.ts'
+    'build/src/entity/**/*.js'
   ],
   migrations: [
-    'src/migration/**/*.ts'
+    'build/src/migration/**/*.js'
   ],
   subscribers: [
-    'src/subscriber/**/*.ts'
+    'build/src/subscriber/**/*.js'
   ],
   cli: {
     entitiesDir: 'src/entity',
