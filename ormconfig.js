@@ -1,4 +1,4 @@
-import * as PostgressConnectionStringParser from 'pg-connection-string';
+const PostgressConnectionStringParser = require('pg-connection-string');
 
 // const database = (process.env.mode === 'TEST') ? process.env.DB_NAME_TEST : process.env.DB_NAME;
 const dropSchema = (process.env.mode === 'TEST');
