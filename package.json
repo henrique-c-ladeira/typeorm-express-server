@@ -34,6 +34,7 @@
       "jsonwebtoken": "^8.5.1",
       "lodash": "^4.17.21",
       "pg": "^8.4.0",
+      "pg-connection-string": "^2.4.0",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.31"
    },
