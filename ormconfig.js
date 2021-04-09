@@ -11,7 +11,7 @@ const ormconfig = {
   host: connectionOptions.host,
   port: connectionOptions.port,
   database: connectionOptions.dbname,
-  username: connectionOptions.user,
+  username: connectionOptions.dbname,
   password: connectionOptions.password,
   dropSchema,
   synchronize: true,
