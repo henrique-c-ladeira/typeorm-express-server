@@ -38,7 +38,9 @@
       "typeorm": "0.2.31"
    },
    "scripts": {
-      "start": "ts-node src/index.ts",
+      "start": "node build/src/index.js",
+      "build": "tsc",
+      "postinstall": "npm run build",
       "dev": "nodemon",
       "test": "jest --verbose --watchAll --runInBand"
    },
