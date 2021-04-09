@@ -15,6 +15,7 @@ const ormconfig = {
   database: connectionOptions.dbname,
   dropSchema,
   synchronize: true,
+  ssl: true,
   logging: false,
   entities: [
     'dist/entity/**/*.js'
