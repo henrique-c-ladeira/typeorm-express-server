@@ -10,7 +10,7 @@ const ormconfig = {
   type: 'postgres',
   host: connectionOptions.host,
   port: connectionOptions.port,
-  database: connectionOptions.dbname,
+  database: connectionOptions.database,
   username: connectionOptions.dbname,
   password: connectionOptions.password,
   dropSchema,
