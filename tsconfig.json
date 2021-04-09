@@ -2,7 +2,7 @@
    "compilerOptions": {
       "lib": ["es6"],
       "types": ["node"],
-      "outDir": "build",
+      "outDir": "dist",
       "module": "commonjs",
       "target": "es6",
       "esModuleInterop": true,
