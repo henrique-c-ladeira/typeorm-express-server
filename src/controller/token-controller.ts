@@ -1,35 +1,21 @@
-import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
-import * as jwt from 'jsonwebtoken';
-import { Token, User } from '../entity';
-import { checkHash, catchError } from '../helpers';
-import { BadRequestError, UnauthorizedError } from '../errors';
+import { catchError } from '../helpers';
+import { BadRequestError } from '../errors';
+import { TokenModel } from '../model/token';
 
 export class TokenController {
-  private readonly userRepository = getRepository(User)
-  private readonly tokenRepository = getRepository(Token)
+  private readonly Token = new TokenModel();
 
   public create = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
     const { email, password } = request.body;
     if (!(email && password)) throw new BadRequestError();
-    const userToValidate = await this.userRepository.findOneOrFail({ email: email });
-    const isAutenticated = await checkHash(password, userToValidate.password);
-    if (!isAutenticated) { throw new UnauthorizedError(); }
-
-    const newToken = jwt.sign({ id: userToValidate.id },
-      process.env.JWT_PRIVATE,
-      { expiresIn: '1h' });
-
-    response.status(200).send({ username: userToValidate.name, jwt: newToken });
+    const token = await this.Token.create({ email, password });
+    response.status(200).send({ jwt: token });
   })
 
   public invalidate = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
-    const invalidatedToken = { id: request.token };
-    try {
-      await this.tokenRepository.save(invalidatedToken);
-    } catch {
-      throw new Error('could not save to database');
-    }
+    const tokenToInvalidate = { id: request.token };
+    await this.Token.invalidate(tokenToInvalidate);
     response.sendStatus(204);
   });
 }
