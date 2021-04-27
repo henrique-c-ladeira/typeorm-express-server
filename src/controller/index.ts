@@ -1,2 +1,2 @@
-export * from './UserController';
-export * from './TokenController';
+export * from './user-controller';
+export * from './token-controller';
