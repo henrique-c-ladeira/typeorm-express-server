@@ -1,33 +1,26 @@
-/* eslint-disable no-unreachable */
-import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
-import { User } from '../entity';
 import { hash, catchError } from '../helpers';
 import { BadRequestError } from '../errors';
+import { UserModel } from '../model/user';
 
 export class UserController {
-  private readonly userRepository = getRepository(User)
+  private readonly Users = new UserModel();
 
   public all = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
-    const users = await this.userRepository.find();
-    const safeUsers = users.map((elem) => {
-      const { password, id, ...safeUser } = elem;
-      return safeUser;
-    });
-    response.status(200).send(safeUsers);
+    const users = await this.Users.getAll();
+    response.status(200).send(users);
   });
 
   public one = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
-    const user = await this.userRepository.findOne(request.params.id);
-    if (!user) throw new BadRequestError();
-    const { password, ...safeUser } = user;
-    response.status(200).send(safeUser);
+    const userId = request.params.id;
+    if (!userId) throw new BadRequestError();
+    const user = await this.Users.getOne(userId);
+    response.status(200).send(user);
   });
 
   public save = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
     const { name, email, password, phone, birthday } = request.body;
     if (!(name && email && password && phone && birthday)) { throw new BadRequestError(); }
-
     const hashedPassword = await hash(password);
     const newUser = {
       name,
@@ -36,18 +29,15 @@ export class UserController {
       phone,
       birthday
     };
-    try {
-      await this.userRepository.save(newUser);
-    } catch {
-      throw new Error('could not save to database');
-    }
+    const user = await this.Users.save(newUser);
 
-    response.status(200).send({ name: newUser.name, email: newUser.email, phone: newUser.phone, birthday: newUser.birthday });
+    response.status(200).send({ ...user });
   });
 
   public remove = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
-    const userToRemove = await this.userRepository.findOne(request.params.id);
-    if (userToRemove == null) { throw new BadRequestError(); }
+    const userId = request.params.id;
+    if (!userId) throw new BadRequestError();
+    await this.Users.remove(userId);
     response.sendStatus(204);
   });
 }
