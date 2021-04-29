@@ -3,7 +3,7 @@ import express, { Request, Response } from 'express';
 import * as bodyParser from 'body-parser';
 
 import { Routes } from './routes';
-import { logger } from './middlewares/logger-middleware';
+import { logger } from './middlewares';
 
 const app = express();
 app.use(bodyParser.json());
