@@ -12,9 +12,12 @@ export class UserModel {
     return safeUsers;
   }
 
-  public getOne = async (userId): Promise<safeUser> => {
-    const user = await this.userRepository.findOne(userId);
+  public getOne = async (userId: string): Promise<safeUser> => {
+    if (!userId) throw new Error('Please provide an ID to search');
+
+    const user = this.userRepository.getOne(userId);
     if (!user) throw new Error('There is no such user.');
+
     const { password, ...safeUser } = user;
     return safeUser;
   }

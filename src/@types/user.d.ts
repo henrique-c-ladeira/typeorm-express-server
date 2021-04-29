@@ -1,4 +1,5 @@
-interface newUser {
+/// <reference path="./user.d.ts" />
+export declare interface newUser {
   name: string
   email: string
   password: string
@@ -6,6 +7,4 @@ interface newUser {
   birthday: Date
 }
 
-interface IUser extends newUser {}
-
-interface safeUser extends Omit<newUser, 'password'> {}
+export declare interface safeUser extends Omit<newUser, 'password'> {}
