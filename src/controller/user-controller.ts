@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { hash, catchError } from '../helpers';
-import { BadRequestError } from '../errors';
-import { UserModel } from '../model/user';
+import { hash, catchError } from '~/helpers';
+import { BadRequestError } from '~/errors';
+import { UserModel } from '~/model/user';
 
 export class UserController {
   private readonly Users = new UserModel();

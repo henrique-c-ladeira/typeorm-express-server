@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
-import { Token, User } from '../entity';
-import { checkHash } from '../helpers';
-import { UnauthorizedError } from '../errors';
+import { Token, User } from '~/entity';
+import { checkHash } from '~/helpers';
+import { UnauthorizedError } from '~/errors';
 
 interface credentials {
   email: string

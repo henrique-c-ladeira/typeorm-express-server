@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { catchError } from '../helpers';
-import { BadRequestError } from '../errors';
-import { TokenModel } from '../model/token';
+import { catchError } from '~/helpers';
+import { BadRequestError } from '~/errors';
+import { TokenModel } from '~/model/token';
 
 export class TokenController {
   private readonly Token = new TokenModel();
