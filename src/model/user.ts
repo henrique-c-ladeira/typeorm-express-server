@@ -1,13 +1,6 @@
 import { getRepository } from 'typeorm';
 import { User } from '../entity';
 
-interface safeUser {
-  name: string
-  email: string
-  phone: string
-  birthday: Date
-}
-
 interface newUser {
   name: string
   email: string
@@ -15,6 +8,8 @@ interface newUser {
   phone: string
   birthday: Date
 }
+
+type safeUser = Omit<newUser, 'password'>
 
 export class UserModel {
   private readonly userRepository = getRepository(User)
