@@ -4,17 +4,17 @@ import { BadRequestError } from '~/errors';
 import { UserModel } from '~/model/user';
 
 export class UserController {
-  private readonly Users = new UserModel();
+  constructor (private readonly usersModel: UserModel) {}
 
   public all = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
-    const users = await this.Users.getAll();
-    response.status(200).send(users);
+    const userList = await this.usersModel.getAll();
+    response.status(200).send(userList);
   });
 
   public one = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
     const userId = request.params.id;
     if (!userId) throw new BadRequestError();
-    const user = await this.Users.getOne(userId);
+    const user = await this.usersModel.getOne(userId);
     response.status(200).send(user);
   });
 
@@ -29,7 +29,7 @@ export class UserController {
       phone,
       birthday
     };
-    const user = await this.Users.save(newUser);
+    const user = await this.usersModel.save(newUser);
 
     response.status(200).send({ ...user });
   });
@@ -37,7 +37,7 @@ export class UserController {
   public remove = catchError(async (request: Request, response: Response, next: NextFunction): Response => {
     const userId = request.params.id;
     if (!userId) throw new BadRequestError();
-    await this.Users.remove(userId);
+    await this.usersModel.remove(userId);
     response.sendStatus(204);
   });
 }
