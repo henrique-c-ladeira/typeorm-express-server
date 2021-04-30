@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+import { config } from 'dotenv-safe';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import app from './server';
