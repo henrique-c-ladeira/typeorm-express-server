@@ -11,12 +11,12 @@
       "baseUrl": "./src",
       "paths": {
          "~/tests/*": ["../tests/*"],
-         "~/*": ["*"]
+         "~/*": ["*"],
+         "typeRoots" : ["./src/@types"]
       },
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "strictNullChecks": true
    },
    "include": ["src", "tests"],
    "exclude": [
