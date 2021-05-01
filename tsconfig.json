@@ -11,7 +11,7 @@
       "esModuleInterop": true,
       "sourceMap": true,
       "rootDirs": ["src", "tests"],
-      "baseUrl": "./src",
+      "baseUrl": "src",
       "paths": {
          "~/tests/*": ["../tests/*"],
          "~/*": ["*"]
@@ -23,8 +23,6 @@
    },
    "include": ["src", "tests"],
    "exclude": [
-      "node_modules",
-      "build",
-      "tests"
+      "node_modules"
    ]
 }

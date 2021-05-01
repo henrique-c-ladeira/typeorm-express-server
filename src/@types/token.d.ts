@@ -1,3 +1,3 @@
 declare interface TokenInterface {
-  id: string
+  id: string;
 }
