@@ -1,6 +1,9 @@
 {
    "compilerOptions": {
       "lib": ["es6"],
+      "typeRoots": [
+         "./src/@types",
+         "./node_modules/@types"],
       "types": ["node"],
       "outDir": "dist",
       "module": "commonjs",

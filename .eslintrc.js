@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/strict-boolean-expressions': 0,
     semi: ['error', 'always'],
-    '@typescript-eslint/semi': ['off']
+    '@typescript-eslint/semi': ['off'],
+    'no-undef': 'off'
   }
 };
