@@ -16,13 +16,13 @@ describe('USER CONTROLLER TESTS', () => {
     email: faker.email(),
     password: faker.string(),
     phone: faker.phone(),
-    birthday: faker.birthday()
+    birthday: faker.birthday(),
   };
   const invalidRequestBody = {
     email: faker.email(),
     password: faker.string(),
     phone: faker.phone(),
-    birthday: faker.birthday()
+    birthday: faker.birthday(),
   };
 
   beforeAll(async () => {
@@ -48,7 +48,9 @@ describe('USER CONTROLLER TESTS', () => {
   });
 
   test('POST /users - Should return 400 if invalid request.', async (done) => {
-    const response = await supertest(app).post('/users').send(invalidRequestBody);
+    const response = await supertest(app)
+      .post('/users')
+      .send(invalidRequestBody);
     expect(response.status).toBe(400);
     done();
   });

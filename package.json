@@ -52,7 +52,7 @@
       "build": "tsc",
       "dev": "nodemon",
       "test": "jest --verbose --watchAll --runInBand",
-      "prettify": "prettier --config .prettierrc 'src/**/*.ts' --write"
+      "prettify": "prettier src/**/*.ts --write"
    },
    "main": "index.js",
    "author": "Henrique Curzio Ladeira <henrique.c.ladeira@gmail.com>",

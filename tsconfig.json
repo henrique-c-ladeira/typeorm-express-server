@@ -4,7 +4,7 @@
       "typeRoots": [
          "./src/@types",
          "./node_modules/@types"],
-      "types": ["node"],
+      "types": ["jest","node"],
       "outDir": "dist",
       "module": "commonjs",
       "target": "es6",
