@@ -14,7 +14,8 @@
       "baseUrl": "./src",
       "paths": {
          "~/tests/*": ["../tests/*"],
-         "~/*": ["*"]
+         "~/*": ["*"],
+         "typeRoots" : ["./src/@types"]
       },
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
