@@ -1,21 +1,6 @@
 import { getRepository } from 'typeorm';
 import { User } from '~/entity';
 
-interface safeUser {
-  name: string
-  email: string
-  phone: string
-  birthday: Date
-}
-
-interface newUser {
-  name: string
-  email: string
-  password: string
-  phone: string
-  birthday: Date
-}
-
 export class UserModel {
   private readonly userRepository = getRepository(User)
 

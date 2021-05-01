@@ -4,7 +4,8 @@ module.exports = {
   },
   extends: [
     'standard-with-typescript',
-    'eslint:recommended'
+    'eslint:recommended',
+    'prettier'
   ],
   parserOptions: {
     project: './tsconfig.json'
@@ -13,6 +14,8 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 0,
     semi: ['error', 'always'],
     '@typescript-eslint/semi': ['off'],
-    'no-undef': 'off'
-  }
+    'no-undef': 'off',
+    'prettier/prettier': 1
+  },
+  plugins: ['prettier']
 };
