@@ -4,18 +4,16 @@ import * as jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import { Token } from '~/entity';
 import { UnauthorizedError, AccessDeniedError } from '~/errors';
-import { catchError } from '~/helpers';
+import { catchError } from '~/utils';
 
-export const verifyJWT = catchError(async (req: Request, res: Response, next: NextFunction): NextFunction => {
+export const verifyJWT = catchError(async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
   if (!token) throw new UnauthorizedError();
 
-  try {
-    const decoded = await jwt.verify(token, process.env.JWT_PRIVATE);
-    req.userId = decoded.id;
-  } catch {
-    throw new UnauthorizedError();
-  }
+  if (!process.env.JWT_PRIVATE) { throw new Error('error in jwt token'); }
+
+  const { id } = jwt.verify(token, process.env.JWT_PRIVATE) as TokenInterface;
+  req.user = { id };
 
   // Check if token is invalidated
   const tokenRepository = getRepository(Token);

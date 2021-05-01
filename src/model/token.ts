@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
 import { Token, User } from '~/entity';
-import { checkHash } from '~/helpers';
+import { checkHash } from '~/utils';
 import { UnauthorizedError } from '~/errors';
 
 interface credentials {
@@ -21,6 +21,8 @@ export class TokenModel {
     const userToValidate = await this.userRepository.findOneOrFail({ email: credentials.email });
     const isAutenticated = await checkHash(credentials.password, userToValidate.password);
     if (!isAutenticated) { throw new UnauthorizedError(); }
+
+    if (!process.env.JWT_PRIVATE) { throw new Error('error in jwt token'); }
 
     const token = jwt.sign({ id: userToValidate.id },
       process.env.JWT_PRIVATE,

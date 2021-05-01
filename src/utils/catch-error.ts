@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-// import { UnauthorizedError, AccessDeniedError, BadRequestError } from '../errors';
 
 export const catchError = (fnc) =>
-  async (req: Request, res: Response, next: NextFunction): NextFunction => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       await fnc(req, res, next);
     } catch (error) {
